@@ -7,7 +7,7 @@ public class Sword {
         dodge = 20;
     }
 
-    public int getAttack() {
+    public int getPlayerAttack() {
         return attack;
     }
 }
