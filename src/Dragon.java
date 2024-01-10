@@ -18,8 +18,19 @@ public class Dragon {
     }
 
     public int dragonAttack() {
-        return attack;
+        int bonusDmg = attack;
+        int randNum = (int) (Math.random() * 5) + 1;
+        if (randNum == 1) {
+            bonusDmg += (int) (Math.random() * 10) + 1;
+        }
+        return bonusDmg;
     }
 
-    public void setDragonHealth()
+    public void dragonSetHealth(Player player) {
+        health -= player.playerAttack();
+    }
+
+    public void setDragonHealth() {
+
+    }
 }
