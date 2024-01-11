@@ -9,4 +9,13 @@ public class Sword {
     public int getPlayerAttack() {
         return attack;
     }
+
+    public void setAttack(int addDamage) {
+        attack += addDamage;
+    }
+
+    public void setDodge(int addChance) {
+        dodge += addChance;
+    }
+
 }

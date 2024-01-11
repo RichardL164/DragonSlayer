@@ -1,11 +1,12 @@
+import java.sql.SQLOutput;
+
 public class Dragon {
     private int level;
-    public static int health;
+    private int health;
     private int attack;
-    public static int dragonCount = 1;
+    private Player player;
 
-
-    public Dragon() {
+    public Dragon(Player player) {
         level = (int) (Math.random() * 3) + 1;
         health = 100;
         if (level == 1) {
@@ -15,6 +16,7 @@ public class Dragon {
         } else {
             attack = 20;
         }
+        this.player = player;
     }
 
     public int dragonAttack() {
@@ -26,11 +28,33 @@ public class Dragon {
         return bonusDmg;
     }
 
-    public void dragonSetHealth(Player player) {
+    public void setDragonHealth(Player player) {
         health -= player.playerAttack();
     }
 
-    public void setDragonHealth() {
-
+    public void dragonReward() {
+        if (health <= 0) {
+            int randomChance = (int) (Math.random() * 100) + 1;
+            if (randomChance <= 30) {
+                int randomSwordChance = (int) (Math.random() * 2) + 1;
+                int addedCritOrDodge = (int) (0.75 * randomChance);
+                if (randomSwordChance == 1) {
+                    System.out.println("The dragon gives you crit");
+                    player.getSword().setDodge(addedCritOrDodge);
+                } else {
+                    System.out.println("The dragon gives you dodge;");
+                    player.getSword().setAttack(addedCritOrDodge);
+                }
+            } else if (randomChance <= 60) {
+                System.out.println("The dragon drops gold");
+                player.setGold(randomChance);
+            } else if (randomChance <= 90) {
+                System.out.println("The dragon gives you health");
+                int addedHealth = (int) (0.5 * randomChance);
+                player.setHealth(addedHealth);
+            } else {
+                System.out.println("Nothing");
+            }
+        }
     }
 }
