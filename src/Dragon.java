@@ -32,6 +32,9 @@ public class Dragon {
         health -= player.playerAttack();
     }
 
+    public int getLevel() {
+        return level;
+    }
     public void dragonReward() {
         if (health <= 0) {
             int randomChance = (int) (Math.random() * 100) + 1;

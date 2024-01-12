@@ -2,13 +2,11 @@ public class Player {
     private String name;
     private int health = 100;
     private int gold;
-    public static boolean healthPot;
     private Sword sword;
 
     public Player(String name) {
         this.name = name;
         gold = 0;
-        healthPot = false;
         sword = new Sword();
     }
 
@@ -41,6 +39,5 @@ public class Player {
 
     public void useHealthPot() {
         health += 50;
-        healthPot = false;
     }
 }
