@@ -18,7 +18,17 @@ public class Dragon {
         }
         this.player = player;
     }
+    public void setDragonHealth(int damage) {
+        health -= damage;
+    }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public int getHealth() {
+        return health;
+    }
     public int dragonAttack() {
         int bonusDmg = attack;
         int randNum = (int) (Math.random() * 5) + 1;
@@ -28,13 +38,6 @@ public class Dragon {
         return bonusDmg;
     }
 
-    public void setDragonHealth(Player player) {
-        health -= player.playerAttack();
-    }
-
-    public int getLevel() {
-        return level;
-    }
     public void dragonReward() {
         if (health <= 0) {
             int randomChance = (int) (Math.random() * 100) + 1;

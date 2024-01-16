@@ -21,6 +21,9 @@ public class Player {
     public Sword getSword() {
         return sword;
     }
+    public int getHealth() {
+        return health;
+    }
     public int playerAttack() {
         int bonusDmg = sword.getPlayerAttack();
         int randNum = (int) (Math.random() * 2) + 1;

@@ -10,6 +10,9 @@ public class Sword {
         return attack;
     }
 
+    public int getDodge() {
+        return dodge;
+    }
     public void setAttack(int addDamage) {
         attack += addDamage;
     }
