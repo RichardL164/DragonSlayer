@@ -19,29 +19,43 @@ public class DragonSlayer {
         room = new Room(p1);
         while (repeat) {
             System.out.println("You have arrived in " + room.getRoomName());
-            while (!room.roomCleared()) {
-                dragon = new Dragon(p1);
-                System.out.println("The dragon is level " + dragon.getLevel());
-                while (p1.getHealth() > 0 && dragon.getHealth() > 0) {
-                    System.out.println("Would you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) spend your gold");
-                    int userChoice = scan.nextInt();
-                    scan.nextLine();
-                    processChoice(userChoice);
-                    if (dragon.getHealth() < 0) {
-                        dragon.dragonReward();
-                        break;
-                    }
-                    int randomDodge = (int) (Math.random() * 100) + 1;
-                    if (p1.getSword().getDodge() > randomDodge) {
-                        System.out.println("You dodge the dragons attack and take no damage");
-                    } else {
-                        System.out.println("The dragon deals " + dragon.dragonAttack() + " damage");
-                    }
-                }
-            }
+            dragonSpawn();
         }
     }
 
+    public void dragonSpawn() {
+        while (!room.roomCleared()) {
+            dragon = new Dragon(p1);
+            System.out.println("The dragon is level " + dragon.getLevel());
+            fightWithDragon();
+        }
+    }
+
+    public void fightWithDragon() {
+        while (p1.getHealth() > 0 && dragon.getHealth() > 0) {
+            System.out.println("Would you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) spend your gold");
+            int userChoice = scan.nextInt();
+            scan.nextLine();
+            processChoice(userChoice);
+            if (dragon.getHealth() < 0) {
+                dragon.dragonReward();
+                break;
+            }
+            dragonAttack();
+        }
+    }
+
+    public void dragonAttack() {
+        int randomDodge = (int) (Math.random() * 100) + 1;
+        if (p1.getSword().getDodge() > randomDodge) {
+            System.out.println("You dodge the dragons attack and take no damage");
+        } else {
+            int dmg = dragon.dragonAttack();
+            p1.setHealth(-dmg);
+            System.out.println("The dragon deals " + dmg + " damage");
+            System.out.println("You are at " + p1.getHealth() + " health\n");
+        }
+    }
     public void processChoice(int num) {
         if (num == 1) {
             choice1();
@@ -70,8 +84,9 @@ public class DragonSlayer {
         if (dmg > p1.getSword().getPlayerAttack()) {
             System.out.println("Your sword shines and deals critical damage");
         }
-        System.out.println("You deal " + dmg + " damage to the dragon");
         dragon.setDragonHealth(dmg);
+        System.out.println("You deal " + dmg + " damage to the dragon");
+        System.out.println("The dragon is at " + dragon.getHealth() + " health\n");
     }
 
     public void choice3() {
@@ -82,4 +97,6 @@ public class DragonSlayer {
     public void choice4() {
 //        implement later
     }
+
+
 }

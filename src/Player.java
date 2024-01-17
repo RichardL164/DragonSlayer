@@ -14,8 +14,8 @@ public class Player {
         gold += addedGold;
     }
 
-    public void setHealth(int addedHealth) {
-        health += addedHealth;
+    public void setHealth(int health) {
+        this.health += health;
     }
 
     public Sword getSword() {
