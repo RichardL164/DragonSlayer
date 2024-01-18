@@ -1,5 +1,5 @@
 public class Room {
-    public static int room = 0;
+    public static int currentRoom = 0;
     private int dragonCount;
     private String[] roomNames = new String[] {"the den", "the lair", "the cave", "the refuge", "the home"};
     private String roomName;
@@ -9,9 +9,9 @@ public class Room {
     private Player player;
 
     public Room(Player player) {
-        roomName = roomNames[room];
-        room++;
-        dragonCount = (int) (Math.random() * 3) + 1;
+        roomName = roomNames[currentRoom];
+        currentRoom++;
+        dragonCount = 0;
         searchPot = false;
         this.player = player;
         if ((int) (Math.random() * 2) + 1 == 1) {
@@ -30,6 +30,12 @@ public class Room {
     }
     public boolean roomCleared() {
         return dragonCount == 0;
+    }
+    public void setDragonCount(int num) {
+        dragonCount += num;
+    }
+    public int getDragonCount() {
+        return dragonCount;
     }
 
     public boolean roomSearched() {

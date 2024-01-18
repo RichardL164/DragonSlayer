@@ -9,13 +9,7 @@ public class Dragon {
     public Dragon(Player player) {
         level = (int) (Math.random() * 3) + 1;
         health = 100;
-        if (level == 1) {
-            attack = 10;
-        } else if (level == 2) {
-            attack = 15;
-        } else {
-            attack = 20;
-        }
+        attack = 10;
         this.player = player;
     }
     public void setDragonHealth(int damage) {
@@ -30,12 +24,7 @@ public class Dragon {
         return health;
     }
     public int dragonAttack() {
-        int bonusDmg = attack;
-        int randNum = (int) (Math.random() * 5) + 1;
-        if (randNum == 1) {
-            bonusDmg += (int) (Math.random() * 10) + 1;
-        }
-        return bonusDmg;
+        return level;
     }
 
     public void dragonReward() {

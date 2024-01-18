@@ -26,8 +26,11 @@ public class DragonSlayer {
     public void dragonSpawn() {
         while (!room.roomCleared()) {
             dragon = new Dragon(p1);
+            room.setDragonCount((int) (Math.random() * 3) + 1);
             System.out.println("The dragon is level " + dragon.getLevel());
+            System.out.println("There are " + room.getDragonCount() + " dragons");
             fightWithDragon();
+            Room.currentRoom++;
         }
     }
 
@@ -39,6 +42,7 @@ public class DragonSlayer {
             processChoice(userChoice);
             if (dragon.getHealth() < 0) {
                 dragon.dragonReward();
+                room.setDragonCount(-1);
                 break;
             }
             dragonAttack();
@@ -76,6 +80,8 @@ public class DragonSlayer {
             } else {
                 System.out.println("You did not find anything");
             }
+        } else {
+            System.out.println("You checked the room already");
         }
     }
 
