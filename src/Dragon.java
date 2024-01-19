@@ -34,21 +34,21 @@ public class Dragon {
                 int randomSwordChance = (int) (Math.random() * 2) + 1;
                 int addedCritOrDodge = (int) (0.75 * randomChance);
                 if (randomSwordChance == 1) {
-                    System.out.println("The dragon gives you crit");
+                    System.out.println("\nThe dragon gives you dodge chance");
                     player.getSword().setDodge(addedCritOrDodge);
                 } else {
-                    System.out.println("The dragon gives you dodge;");
+                    System.out.println("\nThe dragon gives you additional damage;");
                     player.getSword().setAttack(addedCritOrDodge);
                 }
             } else if (randomChance <= 60) {
-                System.out.println("The dragon drops gold");
+                System.out.println("\nThe dragon drops gold");
                 player.setGold(randomChance);
             } else if (randomChance <= 90) {
-                System.out.println("The dragon gives you health");
+                System.out.println("\nThe dragon gives you health");
                 int addedHealth = (int) (0.5 * randomChance);
                 player.setHealth(addedHealth);
             } else {
-                System.out.println("Nothing");
+                System.out.println("\nNothing");
             }
         }
     }

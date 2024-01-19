@@ -19,28 +19,33 @@ public class DragonSlayer {
         room = new Room(p1);
         while (repeat) {
             System.out.println("You have arrived in " + room.getRoomName());
+            room.setDragonCount((int) (Math.random() * 3) + 1);
+            System.out.println("There are " + room.getDragonCount() + " dragons");
             dragonSpawn();
+            if (Room.currentRoom == 4){
+
+            }
+            Room.currentRoom++;
+            room.changeRoomName();
         }
     }
 
     public void dragonSpawn() {
         while (!room.roomCleared()) {
             dragon = new Dragon(p1);
-            room.setDragonCount((int) (Math.random() * 3) + 1);
             System.out.println("The dragon is level " + dragon.getLevel());
-            System.out.println("There are " + room.getDragonCount() + " dragons");
             fightWithDragon();
-            Room.currentRoom++;
+            System.out.println("There are " + room.getDragonCount() + " dragons");
         }
     }
 
     public void fightWithDragon() {
         while (p1.getHealth() > 0 && dragon.getHealth() > 0) {
-            System.out.println("Would you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) spend your gold");
+            System.out.println("\nWould you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) spend your gold");
             int userChoice = scan.nextInt();
             scan.nextLine();
             processChoice(userChoice);
-            if (dragon.getHealth() < 0) {
+            if (dragon.getHealth() <= 0) {
                 dragon.dragonReward();
                 room.setDragonCount(-1);
                 break;
@@ -56,8 +61,8 @@ public class DragonSlayer {
         } else {
             int dmg = dragon.dragonAttack();
             p1.setHealth(-dmg);
-            System.out.println("The dragon deals " + dmg + " damage");
-            System.out.println("You are at " + p1.getHealth() + " health\n");
+            System.out.println("The dragon deals " + dmg + " damage to you");
+            System.out.println("You are at " + p1.getHealth() + " health");
         }
     }
     public void processChoice(int num) {
@@ -92,7 +97,11 @@ public class DragonSlayer {
         }
         dragon.setDragonHealth(dmg);
         System.out.println("You deal " + dmg + " damage to the dragon");
-        System.out.println("The dragon is at " + dragon.getHealth() + " health\n");
+        if (dragon.getHealth() < 0) {
+            System.out.println("The dragon is dead");
+        } else {
+            System.out.println("The dragon is at " + dragon.getHealth() + " health\n");
+        }
     }
 
     public void choice3() {

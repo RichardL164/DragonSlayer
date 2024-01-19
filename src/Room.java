@@ -10,7 +10,6 @@ public class Room {
 
     public Room(Player player) {
         roomName = roomNames[currentRoom];
-        currentRoom++;
         dragonCount = 0;
         searchPot = false;
         this.player = player;
@@ -21,6 +20,9 @@ public class Room {
         }
     }
 
+    public void changeRoomName() {
+        roomName = roomNames[currentRoom];
+    }
     public String getRoomName() {
         return roomName;
     }
