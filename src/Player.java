@@ -13,6 +13,9 @@ public class Player {
     public void setGold(int addedGold) {
         gold += addedGold;
     }
+    public int getGold() {
+        return gold;
+    }
 
     public void setHealth(int health) {
         this.health += health;
@@ -34,7 +37,7 @@ public class Player {
     }
 
     public void playerSetHealth(Dragon dragon) {
-        int dodgeRandom = (int) (Math.random() * 10) + 1;
+        int dodgeRandom = (int) (Math.random() * 100) + 1;
         if (Sword.dodge <= dodgeRandom) {
             health -= dragon.dragonAttack();
         }

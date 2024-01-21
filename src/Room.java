@@ -20,6 +20,9 @@ public class Room {
         }
     }
 
+    public void setSearchPot() {
+        searchPot = false;
+    }
     public void changeRoomName() {
         roomName = roomNames[currentRoom];
     }

@@ -1,6 +1,6 @@
 public class Sword {
     private int attack;
-    public static int dodge = 2;
+    public static int dodge = 20;
 
     public Sword() {
         attack = 10;

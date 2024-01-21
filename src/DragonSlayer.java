@@ -5,6 +5,7 @@ public class DragonSlayer {
     private Player p1;
     private Room room;
     private Dragon dragon;
+    private int highScore = 0;
 
     public DragonSlayer() {
         scan = new Scanner(System.in);
@@ -18,15 +19,19 @@ public class DragonSlayer {
         p1 = new Player(name);
         room = new Room(p1);
         while (repeat) {
-            System.out.println("You have arrived in " + room.getRoomName());
+            System.out.println("\nYou have arrived in " + room.getRoomName());
             room.setDragonCount((int) (Math.random() * 3) + 1);
             System.out.println("There are " + room.getDragonCount() + " dragons");
             dragonSpawn();
-            if (Room.currentRoom == 4){
-
+            if (Room.currentRoom == 4) {
+                System.out.println("You win the game! Would you like to play again? y/n: ");
+                String ans = scan.nextLine();
+                endingCheck(ans);
+                Room.currentRoom = -1;
             }
             Room.currentRoom++;
             room.changeRoomName();
+            room.setSearchPot();
         }
     }
 
@@ -35,13 +40,16 @@ public class DragonSlayer {
             dragon = new Dragon(p1);
             System.out.println("The dragon is level " + dragon.getLevel());
             fightWithDragon();
+            if (!repeat) {
+                break;
+            }
             System.out.println("There are " + room.getDragonCount() + " dragons");
         }
     }
 
     public void fightWithDragon() {
         while (p1.getHealth() > 0 && dragon.getHealth() > 0) {
-            System.out.println("\nWould you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) spend your gold");
+            System.out.println("\nWould you like to:\n1) search the room\n2) attack the dragon\n3) use a health pot\n4) check gold amount");
             int userChoice = scan.nextInt();
             scan.nextLine();
             processChoice(userChoice);
@@ -51,6 +59,13 @@ public class DragonSlayer {
                 break;
             }
             dragonAttack();
+            if (p1.getHealth() <= 0) {
+                System.out.println("The dragon finishes you off! Do you want to play again? y/n ");
+                String ans = scan.nextLine();
+                endingCheck(ans);
+                break;
+            }
+            checkStats();
         }
     }
 
@@ -105,13 +120,48 @@ public class DragonSlayer {
     }
 
     public void choice3() {
-        p1.useHealthPot();
-        System.out.println("Your health increased by 50\nYou now have " + p1.getHealth() + " health");
+        if (Room.hasHealthPot) {
+            p1.useHealthPot();
+            System.out.println("Your health increased by 50\nYou now have " + p1.getHealth() + " health");
+        } else {
+            System.out.println("You do not have a health pot");
+        }
     }
 
     public void choice4() {
-//        implement later
+        System.out.println("You have " + p1.getGold() + " gold");
     }
 
-
+    public void checkStats() {
+        System.out.println("\n------------------------------");
+        System.out.println("Current player stats");
+        System.out.println("_______________");
+        System.out.println("Base Damage: " + p1.getSword().getPlayerAttack());
+        System.out.println("Health: " + p1.getHealth());
+        System.out.println("Dodge Chance: " + p1.getSword().getDodge());
+        System.out.println("Gold: " + p1.getGold());
+        System.out.println("\nCurrent dragon stats");
+        System.out.println("_______________");
+        System.out.println("Base Damage: " + dragon.getAttack());
+        System.out.println("Health: " + dragon.getHealth());
+        System.out.println("------------------------------");
+    }
+    public void resetStats() {
+        p1.setGold(-p1.getGold());
+        p1.setHealth(-p1.getHealth() + 100);
+        p1.getSword().setAttack(-p1.getSword().getPlayerAttack() + 10);
+        p1.getSword().setDodge(-p1.getSword().getDodge() + 20);
+    }
+    public void endingCheck(String ans) {
+        if (ans.equals("y")) {
+            repeat = true;
+        } else {
+            repeat = false;
+        }
+        if (p1.getGold() > highScore) {
+            highScore = p1.getGold();
+        }
+        resetStats();
+        System.out.println("Current High Score: " + highScore + " gold");
+    }
 }
