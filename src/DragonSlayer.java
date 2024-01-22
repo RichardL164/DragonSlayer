@@ -20,8 +20,9 @@ public class DragonSlayer {
         room = new Room(p1);
         while (repeat) {
             System.out.println("\nYou have arrived in " + room.getRoomName());
+            checkStats();
             room.setDragonCount((int) (Math.random() * 3) + 1);
-            System.out.println("There are " + room.getDragonCount() + " dragons");
+            System.out.println("There are " + Colors.GREEN + room.getDragonCount() + " dragons" + Colors.RESET);
             dragonSpawn();
             if (Room.currentRoom == 4) {
                 System.out.println("You win the game! Would you like to play again? y/n: ");
@@ -38,7 +39,7 @@ public class DragonSlayer {
     public void dragonSpawn() {
         while (!room.roomCleared()) {
             dragon = new Dragon(p1);
-            System.out.println("The dragon is level " + dragon.getLevel());
+            System.out.println("The dragon is " + Colors.BLUE + "level " + dragon.getLevel() + Colors.RESET);
             fightWithDragon();
             if (!repeat) {
                 break;
@@ -76,8 +77,8 @@ public class DragonSlayer {
         } else {
             int dmg = dragon.dragonAttack();
             p1.setHealth(-dmg);
-            System.out.println("The dragon deals " + dmg + " damage to you");
-            System.out.println("You are at " + p1.getHealth() + " health");
+            System.out.println("The dragon deals " + Colors.RED + dmg + " damage" + Colors.RESET + " to you");
+            System.out.println("You are at " + Colors.GREEN + p1.getHealth() + " health\n" + Colors.RESET);
         }
     }
     public void processChoice(int num) {
@@ -111,11 +112,11 @@ public class DragonSlayer {
             System.out.println("Your sword shines and deals critical damage");
         }
         dragon.setDragonHealth(dmg);
-        System.out.println("You deal " + dmg + " damage to the dragon");
+        System.out.println("You deal " + Colors.RED + dmg + " damage" + Colors.RESET + " to the dragon");
         if (dragon.getHealth() < 0) {
             System.out.println("The dragon is dead");
         } else {
-            System.out.println("The dragon is at " + dragon.getHealth() + " health\n");
+            System.out.println("The dragon is at " + Colors.GREEN + dragon.getHealth() + " health\n" + Colors.RESET);
         }
     }
 
@@ -136,14 +137,11 @@ public class DragonSlayer {
         System.out.println("\n------------------------------");
         System.out.println("Current player stats");
         System.out.println("_______________");
-        System.out.println("Base Damage: " + p1.getSword().getPlayerAttack());
-        System.out.println("Health: " + p1.getHealth());
-        System.out.println("Dodge Chance: " + p1.getSword().getDodge());
-        System.out.println("Gold: " + p1.getGold());
-        System.out.println("\nCurrent dragon stats");
-        System.out.println("_______________");
-        System.out.println("Base Damage: " + dragon.getAttack());
-        System.out.println("Health: " + dragon.getHealth());
+        System.out.println(Colors.RED + "Base Damage: " + p1.getSword().getPlayerAttack() + Colors.RESET);
+        System.out.println(Colors.GREEN + "Health: " + p1.getHealth() + Colors.RESET);
+        System.out.println(Colors.WHITE + "Dodge Chance: " + p1.getSword().getDodge() + Colors.RESET);
+        System.out.println(Colors.YELLOW + "Gold: " + p1.getGold() + Colors.RESET);
+        System.out.println(Colors.PURPLE + "Current room: " + room.getRoomName() + Colors.RESET);
         System.out.println("------------------------------");
     }
     public void resetStats() {

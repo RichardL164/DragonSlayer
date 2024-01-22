@@ -27,7 +27,7 @@ public class Dragon {
         return health;
     }
     public int dragonAttack() {
-        return level;
+        return level * 2;
     }
 
     public void dragonReward() {
@@ -36,21 +36,21 @@ public class Dragon {
             if (randomChance <= 30) {
                 int randomSwordChance = (int) (Math.random() * 2) + 1;
                 if (randomSwordChance == 1) {
-                    System.out.println("\nThe dragon gives you dodge chance");
+                    System.out.println(Colors.WHITE + "\nThe dragon gives you dodge chance" + Colors.RESET);
                     player.getSword().setDodge(10);
                 } else {
-                    System.out.println("\nThe dragon gives you additional damage;");
+                    System.out.println(Colors.RED + "\nThe dragon gives you additional damage" + Colors.RESET);
                     player.getSword().setAttack(10);
                 }
             } else if (randomChance <= 60) {
-                System.out.println("\nThe dragon drops gold");
+                System.out.println(Colors.YELLOW + "\nThe dragon drops gold" + Colors.RESET);
                 player.setGold(randomChance);
             } else if (randomChance <= 90) {
-                System.out.println("\nThe dragon gives you health");
+                System.out.println(Colors.GREEN + "\nThe dragon gives you health" + Colors.RESET);
                 int addedHealth = (int) (0.5 * randomChance);
                 player.setHealth(addedHealth);
             } else {
-                System.out.println("\nNothing");
+                System.out.println("\nThe dragon does not drop loot");
             }
         }
     }
